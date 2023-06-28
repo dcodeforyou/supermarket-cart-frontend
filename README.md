@@ -50,14 +50,7 @@ To run the application locally, follow these steps:
 
 The application is deployed and hosted on Netlify. You can access the live version at [https://supermarket-cart.netlify.app](https://supermarket-cart.netlify.app).
 
-## Contributing
-
-Contributions to this repository are welcome. If you find any issues or have suggestions for improvements, please feel free to create a pull request or submit an issue.
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Acknowledgements
-
-This project was developed as part of a coding challenge and serves as a demonstration of web development skills using Angular and related technologies. Special thanks to the project contributors for their valuable contributions.
