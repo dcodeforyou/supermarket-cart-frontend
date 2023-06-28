@@ -1,13 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReceiptService {
 
-  private apiUrl = 'http://localhost:3000/receipt';
+  private apiUrl = `${environment.apiUrl}/receipt`;
 
   constructor(private http: HttpClient) { }
 
