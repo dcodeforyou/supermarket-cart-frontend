@@ -1,1 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600;800&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+* {
+    font: 400 16px/23px 'Jost', sans-serif;
+  }
+
+  h3, p, body {
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  body {
+    background: #f2f9f1;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    color: #062925
+  }
+
+  button {
+    &.inc-dec {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1f6f78;
+    }
+
+    &:hover {
+        background-color: #164f54;
+    }
+    &:disabled {
+        background-color: #6c999e;
+        color: rgb(199, 199, 199);
+        cursor: auto;
+    }
+
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #1f6f78;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+input.quantity-input {
+    width: 20px;
+    text-align: center;
+    border: none;
+    background-color: #f7f7f2;
+}
+
+.product-name {
+    font-size: large;
+}

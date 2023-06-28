@@ -1,0 +1,25 @@
+<div class="cart">
+    <h2>Cart</h2>
+    <div *ngIf="cartItems && cartItems!.length > 0; else emptyCart">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <h3 class="product-name">{{ item.name }}</h3>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Total Price: {{ item.totalPrice | currency:'INR'}}</p>
+        <div class="item-controller">
+          <div class="quantity-control">
+            <button class="inc-dec" (click)="updateQuantity(item, item.quantity - 1)" [disabled]="loading">-</button>
+            <input class="quantity-input" type="text" [value]="item.quantity" readonly>
+            <button class="inc-dec" (click)="updateQuantity(item, item.quantity + 1)" [disabled]="loading">+</button>
+          </div>
+          <button (click)="removeFromCart(item)" [disabled]="loading">Remove</button>
+        </div>
+        
+      </div>
+      <p>Total: {{ cartTotal | currency:'INR'}}</p>
+      <button (click)="checkout()">Checkout</button>
+    </div>
+    <ng-template #emptyCart>
+      <p>Your cart is empty.</p>
+    </ng-template>
+  </div>
+  

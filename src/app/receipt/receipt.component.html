@@ -1,0 +1,23 @@
+<div class="receipt">
+    <div class="receipt-container">
+        <h2><span>Receipt</span></h2>
+    <div *ngIf="receiptData">
+      <div class="receipt-item" *ngFor="let item of receiptData.items">
+        <div class="item-details">
+          <p class="product-name">{{ item.name }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
+          <p>Total Price: {{ item.totalPrice | currency:'INR'}}</p>
+        </div>
+      </div>
+      <div class="total-price">
+        <p class="product-name">Total Price After Discount: {{ receiptData.totalPriceAfterDiscount | currency:'INR'}}</p>
+      </div>
+      <div class="user-details">
+        <p><span>User:</span>  {{ receiptData.user }}</p>
+        <p><span>Purchase Timestamp:</span>  {{ receiptData.timestamp }}</p>
+      </div>
+    </div>
+    </div>
+    
+  </div>
+  
