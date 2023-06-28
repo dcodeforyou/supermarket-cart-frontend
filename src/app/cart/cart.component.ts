@@ -63,7 +63,6 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-    // Implement your checkout logic here
     console.log('Checkout');
     this.router.navigate(['/receipt']);
   }

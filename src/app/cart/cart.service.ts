@@ -50,7 +50,6 @@ export class CartService {
   }
 
   private initCartItemCount(): void {
-    // Call the API to get the initial cart item count from the database
     this.http.get<{count: number}>(`${this.apiUrl}/count`).subscribe(res => {
       console.log(res)
       this.cartItemCountSubject.next(res.count);
@@ -72,7 +71,6 @@ export class CartService {
       console.error(error);
 
       const message = `server returned code ${error.status} with body ${error.error}`;
-      // better job for transfering data for user consumption
       throw new Error(`${operation} failed: ${message}`);
     }
   }

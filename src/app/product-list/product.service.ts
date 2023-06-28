@@ -23,7 +23,6 @@ export class ProductService {
       console.error(error);
 
       const message = `server returned code ${error.status} with body ${error.error}`;
-      // better job for transfering data for user consumption
       throw new Error(`${operation} failed: ${message}`);
     }
   }
