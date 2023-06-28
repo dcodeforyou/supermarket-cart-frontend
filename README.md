@@ -2,6 +2,21 @@
 
 This repository contains the frontend code for the Supermarket Cart application. It is built using Angular and interacts with a backend server to manage a shopping cart and product listings. The application allows users to add products to their cart, apply discounts, manage quantities, and generate receipts.
 
+## Demo of creating Transactions
+
+Product Listing Page:
+<br />
+<img width="1437" alt="Screenshot 2023-06-28 at 3 08 31 PM" src="https://github.com/dcodeforyou/supermarket-cart-frontend/assets/92050154/1f91b7f6-3277-4a01-9a2b-4cf461b972cf">
+
+Cart Page:
+<br />
+<img width="1437" alt="Screenshot 2023-06-28 at 3 09 04 PM" src="https://github.com/dcodeforyou/supermarket-cart-frontend/assets/92050154/ac613ee3-1f1f-44c6-b08f-7be3305cf1e5">
+
+Receipt Page:
+<br />
+<img width="1437" alt="Screenshot 2023-06-28 at 3 09 15 PM" src="https://github.com/dcodeforyou/supermarket-cart-frontend/assets/92050154/baf49e7e-d7c8-463b-9410-c1e3a483411b">
+
+
 ## Getting Started
 
 To run the application locally, follow these steps:
