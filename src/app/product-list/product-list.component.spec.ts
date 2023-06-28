@@ -96,6 +96,7 @@ describe('ProductListComponent', () => {
       };
 
     jest.spyOn(cartServiceMock, 'addToCart').mockReturnValue(of(product));
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
     jest.spyOn(console, 'log');
     component.addToCart(product);
     const res = "Item added to cart:";

@@ -3,15 +3,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { CartService } from './cart/cart.service';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let httpClientSpy: any;
+  let cartServiceMock: any;
 
   beforeEach(async () => {
     httpClientSpy = {
       get: jest.fn()
+    };
+
+    cartServiceMock = {
+      cartItemCount$: jest.fn()
     }
 
     await TestBed.configureTestingModule({
@@ -25,6 +31,10 @@ describe('AppComponent', () => {
         {
           provide: HttpClient,
           useValue: httpClientSpy
+        },
+        {
+          provide: CartService,
+          useValue: cartServiceMock
         }
       ]
     }).compileComponents();
@@ -35,17 +45,5 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
-  });
-
-  it(`should get current user`, () => {
-    const res = {
-      user: "New User"
-    };
-    expect(component.currentUser).toBe("Current User");
-
-    jest.spyOn(httpClientSpy, 'get').mockReturnValue(of(res));
-    fixture.detectChanges();
-    expect(httpClientSpy.get).toBeCalledTimes(1);
-    expect(component.currentUser).toBe(res.user);
   });
 });

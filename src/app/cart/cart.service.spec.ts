@@ -1,199 +1,110 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
-
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CartService } from './cart.service';
+import { environment } from 'src/environments/environment';
 
 describe('CartService', () => {
-  let service: CartService;
-  let httpClientSpy: any;
+  let cartService: CartService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
-    httpClientSpy = {
-      get: jest.fn(),
-      post: jest.fn(),
-      put: jest.fn(),
-      delete: jest.fn()
-    }
-    service = new CartService(httpClientSpy);
-    // TestBed.configureTestingModule({});
-    // service = TestBed.inject(ReceiptService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('should get cart items', (done) => {
-    const itemsMock = [
-      {
-        _id: '_id123',
-        productId: 'product123',
-        name: 'product-name',
-        quantity: 2,
-        totalPrice: 100,
-      }
-    ];
-
-    const cartResponse = {
-      user: 'exampleuser',
-      timestamp: '2022-05-03T10:25:36.000Z',
-      totalPrice: 150,
-      items: itemsMock,
-      shippingAddress: '123 Street, City',
-      paymentMethod: 'Credit Card',
-      status: 'Pending',
-    };
-    
-    jest.spyOn(httpClientSpy, 'get').mockReturnValue(of(cartResponse));
-
-    service.getCart().subscribe(
-      {
-        next: data => {
-          expect(data).toEqual(cartResponse);
-          done();
-        },
-        error: err => console.log(err)
-      }
-    );
-    expect(httpClientSpy.get).toBeCalledTimes(1);
-  });
-
-  it('should test getCart thrown error', (done) => {
-    const errRes = new HttpErrorResponse({
-      error: 'test 404 error',
-      status: 404,
-      statusText: 'Not Found'
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [CartService],
     });
-    
-    jest.spyOn(httpClientSpy, 'get').mockReturnValue(throwError(() => errRes));
 
-    service.getCart().subscribe(
-      {
-        next: data => console.log(data),
-        error: error => {
-          expect(error.message).toContain('test 404 error');
-          done();
-        }
-      }
-    );
-    expect(httpClientSpy.get).toBeCalledTimes(1);
+    cartService = TestBed.inject(CartService);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  it('should add an item to the cart', (done) => {
-    const itemsMock = [
-      {
-        _id: '_id123',
-        productId: 'product123',
-        name: 'product-name',
-        quantity: 2,
-        totalPrice: 100,
-      }
+
+  it('should retrieve cart items', () => {
+    const mockCartItems = [
+      { id: '1', name: 'Product 1', price: 10 },
+      { id: '2', name: 'Product 2', price: 20 },
     ];
 
-    const cartResponse = {
-      user: 'exampleuser',
-      timestamp: '2022-05-03T10:25:36.000Z',
-      totalPrice: 150,
-      items: itemsMock,
-      shippingAddress: '123 Street, City',
-      paymentMethod: 'Credit Card',
-      status: 'Pending',
-    };
-    
-    jest.spyOn(httpClientSpy, 'post').mockReturnValue(of(cartResponse));
-
-    service.addToCart(itemsMock[0].productId, 2).subscribe(
-      {
-        next: data => {
-          expect(data).toEqual(cartResponse);
-          done();
-        },
-        error: err => console.log(err)
-      }
-    );
-    expect(httpClientSpy.post).toBeCalledTimes(1);
-  });
-
-  it('should update quantity of an item to the cart', (done) => {
-    const itemsMock = [
-      {
-        _id: '_id123',
-        productId: 'product123',
-        name: 'product-name',
-        quantity: 3,
-        totalPrice: 100,
-      }
-    ];
-    
-    jest.spyOn(httpClientSpy, 'put').mockReturnValue(of(itemsMock));
-
-    service.updateCartItemQuantity(itemsMock[0].productId, 3).subscribe(
-      {
-        next: data => {
-          expect(data).toEqual(itemsMock);
-          done();
-        },
-        error: err => console.log(err)
-      }
-    );
-    expect(httpClientSpy.put).toBeCalledTimes(1);
-  });
-
-
-  it('should delete an item from the cart', (done) => {
-    const itemsMock = [
-      {
-        _id: '_id123',
-        productId: 'product123',
-        name: 'product-name',
-        quantity: 2,
-        totalPrice: 100,
-      }
-    ];
-
-    const cartResponse = {
-      user: 'exampleuser',
-      timestamp: '2022-05-03T10:25:36.000Z',
-      totalPrice: 150,
-      items: [],
-      shippingAddress: '123 Street, City',
-      paymentMethod: 'Credit Card',
-      status: 'Pending',
-    };
-    
-    jest.spyOn(httpClientSpy, 'delete').mockReturnValue(of(cartResponse));
-
-    service.removeCartItem(itemsMock[0].productId).subscribe(
-      {
-        next: data => {
-          expect(data).toEqual(cartResponse);
-          done();
-        },
-        error: err => console.log(err)
-      }
-    );
-    expect(httpClientSpy.delete).toBeCalledTimes(1);
-  });
-
-  it('should test removeItemFromCart thrown error', (done) => {
-    const errRes = new HttpErrorResponse({
-      error: 'test 500 error',
-      status: 500,
-      statusText: 'Not Added'
+    cartService.getCart().subscribe((response: any) => {
+      expect(response).toEqual(mockCartItems);
     });
-    
-    jest.spyOn(httpClientSpy, 'delete').mockReturnValue(throwError(() => errRes));
 
-    service.removeCartItem('product123').subscribe(
-      {
-        next: data => console.log(data),
-        error: error => {
-          expect(error.message).toContain('test 500 error');
-          done();
-        }
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/carts`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockCartItems);
+  });
+
+  it('should add item to cart', () => {
+    const productId = '1';
+    const quantity = 2;
+    const mockResponse = { success: true };
+
+    cartService.addToCart(productId, quantity).subscribe((response: any) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/carts/items`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ productId, quantity });
+    req.flush(mockResponse);
+  });
+
+  it('should get cart item', () => {
+    const itemId = '1';
+    const mockCartItem = { id: '1', name: 'Product 1', price: 10, quantity: 2 };
+
+    cartService.getCartItem(itemId).subscribe((response: any) => {
+      expect(response).toEqual(mockCartItem);
+    });
+
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/carts/items/${itemId}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockCartItem);
+  });
+
+  it('should update cart item quantity', () => {
+    const itemId = '1';
+    const quantity = 3;
+    const mockResponse = { success: true };
+
+    cartService.updateCartItemQuantity(itemId, quantity).subscribe((response: any) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/carts/items/${itemId}`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual({ quantity });
+    req.flush(mockResponse);
+  });
+
+  it('should remove cart item', () => {
+    const itemId = '1';
+    const mockResponse = { success: true };
+
+    cartService.removeCartItem(itemId).subscribe((response: any) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/carts/items/${itemId}`);
+    expect(req.request.method).toBe('DELETE');
+    req.flush(mockResponse);
+  });
+
+  it('should handle HTTP error in getCart method', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found' };
+
+    cartService.getCart().subscribe(
+      (response: any) => {
+        expect(response).toBeFalsy();
+      },
+      (error: any) => {
+        expect(error.status).toEqual(404);
+        expect(error.statusText).toEqual('Not Found');
       }
     );
-    expect(httpClientSpy.delete).toBeCalledTimes(1);
+
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/carts`);
+    expect(req.request.method).toBe('GET');
+    req.flush(null, mockErrorResponse);
   });
+
 });

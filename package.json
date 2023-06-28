@@ -41,6 +41,9 @@
       "<rootDir>/node_modules/",
       "<rootDir>/dist"
     ],
+    "modulePaths": [
+      "<rootDir>"
+    ],
     "globals": {
       "ts-jest": {
         "tsConfig": "<rootDir>/tsconfig.spec.json",
