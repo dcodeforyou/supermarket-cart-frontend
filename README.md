@@ -1,27 +1,63 @@
-# ShoppingCart
+# Supermarket Cart Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+This repository contains the frontend code for the Supermarket Cart application. It is built using Angular and interacts with a backend server to manage a shopping cart and product listings. The application allows users to add products to their cart, apply discounts, manage quantities, and generate receipts.
 
-## Development server
+## Getting Started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To run the application locally, follow these steps:
 
-## Code scaffolding
+1. Clone the repository:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+   ```shell
+   git clone https://github.com/dcodeforyou/supermarket-cart-frontend.git
+   ```
 
-## Build
+2. Install the dependencies:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   ```shell
+   cd supermarket-cart-frontend
+   npm install
+   ```
 
-## Running unit tests
+3. Start the development server:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   ```shell
+   ng serve
+   ```
 
-## Running end-to-end tests
+   The application will be accessible at `http://localhost:4200`.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Features
 
-## Further help
+- Get previous cart items: View the list of available products with prices and discounts. When the application loads, it retrieves the previous cart items that were already added. The cart state is managed through MongoDB Atlas.
+- Discounts on product listing: The product listing displays any applicable discounts for the products.
+- Add products to the shopping cart - Users can add items to the cart. If an individual item has a discount, the discounted price will be applied.
+- Group discounts: If a group discount is available, after adding the minimum required quantity of products, the discounted price for each item will be applied.
+- Managing quantity: Users can increment or decrement the quantity of products from the products page.
+- Increment or decrement the quantity of items in the cart.
+- Managing cart items: Users can increment, decrement, or remove items from the cart page.
+- View the cart contents and total price.
+- Checkout and receipt: Users can proceed to checkout to view the receipt, which includes the discounted price, user information, and timestamp.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Technologies Used
+
+- Angular: A popular JavaScript framework for building web applications.
+- HTML/SCSS: Markup and styling languages for structuring and designing the user interface.
+- TypeScript: A superset of JavaScript that adds static typing and other features to enhance development.
+- Jest: A testing library for JavaScript applications.
+
+## Deployment
+
+The application is deployed and hosted on Netlify. You can access the live version at [https://supermarket-cart.netlify.app](https://supermarket-cart.netlify.app).
+
+## Contributing
+
+Contributions to this repository are welcome. If you find any issues or have suggestions for improvements, please feel free to create a pull request or submit an issue.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+This project was developed as part of a coding challenge and serves as a demonstration of web development skills using Angular and related technologies. Special thanks to the project contributors for their valuable contributions.
